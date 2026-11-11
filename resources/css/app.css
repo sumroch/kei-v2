@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+@plugin 'daisyui' {
+    themes: kei --default;
+}
+
+/* Brand theme, colors taken from the old Bootstrap dashboard (assets/dashboard/css/style.css). */
+@plugin 'daisyui/theme' {
+    name: 'kei';
+    default: true;
+    color-scheme: light;
+
+    /* Cool neutral surfaces so the brand blue reads clearly; text is slate, not pure black. */
+    --color-base-100: #ffffff;
+    --color-base-200: #f4f6fa;
+    --color-base-300: #e3e8f0;
+    --color-base-content: #1e293b;
+
+    --color-primary: #2680eb;
+    --color-primary-content: #ffffff;
+    --color-secondary: #1359ac;
+    --color-secondary-content: #ffffff;
+    --color-accent: #cae1ff;
+    --color-accent-content: #1359ac;
+    --color-neutral: #374151;
+    --color-neutral-content: #ffffff;
+
+    --color-info: #0ea5e9;
+    --color-info-content: #ffffff;
+    --color-success: #16a34a;
+    --color-success-content: #ffffff;
+    --color-warning: #f59e0b;
+    --color-warning-content: #1f2937;
+    --color-error: #dc2626;
+    --color-error-content: #ffffff;
+
+    --radius-box: 0.75rem;
+    --radius-field: 0.5rem;
+    --radius-selector: 0.5rem;
+
+    /* Required by daisyUI 5: without these, inputs lose their border and badges/buttons collapse. */
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 0;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../**/*.vue';
+
+@theme {
+    --font-sans: 'Instrument Sans', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* DataTable loading bar */
+@keyframes table-progress {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+}
+
+/* Modal footer (.modal-action inside the scrolling body of Components/Modal.vue) stays visible. */
+/* Brand-colored focus ring for fields (daisyUI default is the text color: a heavy black outline).
+   Unlayered on purpose so it wins over daisyUI's component layer. */
+.input:focus,
+.input:focus-within,
+.select:focus,
+.select:focus-within,
+.textarea:focus {
+    --input-color: var(--color-primary);
+    outline-color: color-mix(in oklab, var(--color-primary) 45%, transparent);
+}
+
+@layer components {
+
+    .modal-body > .modal-action,
+    .modal-body form > .modal-action {
+        position: sticky;
+        bottom: -1.25rem;
+        margin: 1.5rem -1.5rem -1.25rem;
+        padding: 0.875rem 1.5rem;
+        border-top: 1px solid var(--color-base-300);
+        background: var(--color-base-100);
+    }
+}
